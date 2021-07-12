@@ -1,11 +1,24 @@
 package gesta.web;
 
 import java.io.IOException;
+import java.net.*;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.List;
 import java.sql.Date;
+
+import java.util.Properties;
+
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -105,7 +118,7 @@ public class GestaServlet extends HttpServlet {
                     break;
              */
                 default:
-                    error(request, response);
+                    showConnexion(request, response);
                     break;
             }
         } catch (SQLException ex) {
@@ -184,6 +197,7 @@ public class GestaServlet extends HttpServlet {
     	        String description = request.getParameter("description");
     	        String date_debutStr = request.getParameter("date_debut");
     	        String date_finStr = request.getParameter("date_fin");
+    	        String mail = "ndayafranck00@gmail.com";
 
     	        //surround below line with try catch block as below code throws checked exception
     	        Date date_debut = Date.valueOf(date_debutStr);
@@ -191,6 +205,7 @@ public class GestaServlet extends HttpServlet {
         	    //do further processing with Date object
     	        Evenement newEvent = new Evenement(intitule ,description, date_debut, date_fin);
     	        evenementDAO.insertEvent(newEvent);
+    	        sendMail(mail);
     	        response.sendRedirect("list_event");
     	    }
 
@@ -219,5 +234,40 @@ public class GestaServlet extends HttpServlet {
     	        response.sendRedirect("list_event");
 
     	    }
+    
+    private void sendMail(String mail) {
+    	final String username = "meppaarmand@gmail.com";
+		final String password = "Infinity2018";
+ 
+		Properties props = new Properties();
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.starttls.enable", "true");
+		props.put("mail.smtp.host", "smtp.gmail.com");
+		props.put("mail.smtp.port", "587");
+ 
+		Session session = Session.getInstance(props,
+		  new javax.mail.Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(username, password);
+			}
+		  });
+ 
+		try {
+ 
+			Message message = new MimeMessage(session);
+			message.setFrom(new InternetAddress(username));
+			message.setRecipients(Message.RecipientType.TO,
+				InternetAddress.parse(mail));
+			message.setSubject("test 1");
+			message.setText("salut armand ci moi");
+ 
+			Transport.send(message);
+ 
+			System.out.println("Done");
+ 
+		} catch (MessagingException e) {
+			throw new RuntimeException(e);
+		}
+    }
     
 }
