@@ -12,7 +12,7 @@ public class Evenement {
     
     Evenement() {}
     
-    Evenement(String intitule, String desc,Date date_deb,Date date_fin) {
+    public Evenement(String intitule, String desc,Date date_deb,Date date_fin) {
     	super();
     	this.intitule = intitule;
     	this.description = desc;
@@ -20,7 +20,7 @@ public class Evenement {
     	this.date_fin = date_fin;
     }
     
-    Evenement(int id, String intitule, String desc,Date date_deb,Date date_fin) {
+    public Evenement(int id, String intitule, String desc,Date date_deb,Date date_fin) {
     	super();
     	this.id = id;
     	this.intitule = intitule;

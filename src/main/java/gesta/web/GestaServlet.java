@@ -1,9 +1,11 @@
 package gesta.web;
 
 import java.io.IOException;
-
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.List;
+import java.sql.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -17,7 +19,6 @@ import gesta.models.Demande;
 
 import gesta.dao.MembresDAO;
 import gesta.models.Membre;
-
 import gesta.dao.CotisationDAO;
 import gesta.models.Cotisation;
 
@@ -34,9 +35,11 @@ import gesta.models.Evenement;
 public class GestaServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private DemandeDAO demandeDAO;
-
+    private EvenementDAO evenementDAO;
+   
     public void init() {
     	demandeDAO = new DemandeDAO();
+    	evenementDAO = new EvenementDAO();
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -77,9 +80,24 @@ public class GestaServlet extends HttpServlet {
 //                case "/addCotisation":
 //                    addCotisation(request, response);
 //                    break;
-//                case "/evenements":
-//                    listEvenement(request, response);
-//                    break;
+                case "/list_event":
+                   listEvent(request, response);
+                   break;
+                case "/new_event":
+                    showNewEventForm(request, response);
+                    break;
+                case "/insert_event":
+                    insertEvent(request, response);
+                    break;
+                case "/delete_event":
+                    deleteEvent(request, response);
+                    break;
+                case "/edit_event":
+                    showEditEventForm(request, response);
+                    break;
+                case "/update_event":
+                    updateEvent(request, response);
+                    break;
                     
                     
              /**case "/nom_de_la_route":
@@ -120,8 +138,8 @@ public class GestaServlet extends HttpServlet {
     throws SQLException, IOException, ServletException {
         ///Demande < Demande > listDemand = DemandeDAO.selectAllDemande();
         //request.setAttribute("listDemande", listDemand);
-        //RequestDispatcher dispatcher = request.getRequestDispatcher("demandes.jsp");
-        //dispatcher.forward(request, response);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("demandes.jsp");
+        dispatcher.forward(request, response);
     }
     
     private void error(HttpServletRequest request, HttpServletResponse response)
@@ -133,4 +151,73 @@ public class GestaServlet extends HttpServlet {
     /**
      * la suite des fonctions méthodes controlleur ici
      */
+    
+    private void listEvent(HttpServletRequest request, HttpServletResponse response)
+    	    throws SQLException, IOException, ServletException {
+    	        List < Evenement > listEvent = evenementDAO.selectAllEvents();
+    	        System.out.println(listEvent);
+    	        request.setAttribute("listEvent", listEvent);
+    	        RequestDispatcher dispatcher = request.getRequestDispatcher("event-list.jsp");
+    	        dispatcher.forward(request, response);
+    	    }
+
+    private void showNewEventForm(HttpServletRequest request, HttpServletResponse response)
+    	    throws ServletException, IOException {
+    	        RequestDispatcher dispatcher = request.getRequestDispatcher("event-form.jsp");
+    	        dispatcher.forward(request, response);
+    	    }
+
+    private void showEditEventForm(HttpServletRequest request, HttpServletResponse response)
+    	    throws SQLException, ServletException, IOException {
+    	        int id = Integer.parseInt(request.getParameter("id"));
+    	        System.out.println(id);
+    	        Evenement existingEvent = evenementDAO.selectEvent(id);
+    	        request.setAttribute("event", existingEvent);
+    	        RequestDispatcher dispatcher = request.getRequestDispatcher("event-form.jsp");
+    	        
+    	        dispatcher.forward(request, response);
+    	    }
+
+    private void insertEvent(HttpServletRequest request, HttpServletResponse response)
+    	    throws SQLException, IOException {
+    	        String intitule = request.getParameter("intitule");
+    	        String description = request.getParameter("description");
+    	        String date_debutStr = request.getParameter("date_debut");
+    	        String date_finStr = request.getParameter("date_fin");
+
+    	        //surround below line with try catch block as below code throws checked exception
+    	        Date date_debut = Date.valueOf(date_debutStr);
+    	        java.sql.Date date_fin = Date.valueOf(date_finStr);
+        	    //do further processing with Date object
+    	        Evenement newEvent = new Evenement(intitule ,description, date_debut, date_fin);
+    	        evenementDAO.insertEvent(newEvent);
+    	        response.sendRedirect("list_event");
+    	    }
+
+    private void updateEvent(HttpServletRequest request, HttpServletResponse response)
+    	    throws SQLException, IOException {
+    	        int id = Integer.parseInt(request.getParameter("id"));
+    	        String intitule = request.getParameter("intitule");
+    	        String description = request.getParameter("description");
+    	        String date_debutStr = request.getParameter("date_debut");
+    	        String date_finStr = request.getParameter("date_fin");
+
+    	        //surround below line with try catch block as below code throws checked exception
+    	        Date date_debut = Date.valueOf(date_debutStr);
+    	        java.sql.Date date_fin = Date.valueOf(date_finStr);
+        	    //do further processing with Date object
+    	        
+    	        Evenement book = new Evenement(id, intitule ,description, date_debut, date_fin);
+    	        evenementDAO.updateEvent(book);
+    	        response.sendRedirect("list_event");
+    	    }
+
+    private void deleteEvent(HttpServletRequest request, HttpServletResponse response)
+    	    throws SQLException, IOException {
+    	        int id = Integer.parseInt(request.getParameter("id"));
+    	        evenementDAO.deleteEvent(id);
+    	        response.sendRedirect("list_event");
+
+    	    }
+    
 }
