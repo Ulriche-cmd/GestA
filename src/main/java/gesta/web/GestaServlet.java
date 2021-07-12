@@ -105,7 +105,7 @@ public class GestaServlet extends HttpServlet {
                     break;
              */
                 default:
-                    showConnexion(request, response);
+                    error(request, response);
                     break;
             }
         } catch (SQLException ex) {
