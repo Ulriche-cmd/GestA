@@ -7,8 +7,8 @@ public class Evenement {
 	protected int id;
     protected String 	intitule;
     protected String 	description;
-    protected Date 		date_debut;
-    protected Date 		date_fin;
+    protected Date 	date_debut;
+    protected Date 	date_fin;
     
     Evenement() {}
     
