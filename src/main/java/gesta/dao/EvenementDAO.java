@@ -26,7 +26,7 @@ public class EvenementDAO {
 
     public EvenementDAO() {}
 
-    protected Connection getConnection() {
+    protected Connection getConnexion() {
         Connection connection = null;
         try {
         	System.out.println( "Chargement du driver..." );
@@ -52,7 +52,7 @@ public class EvenementDAO {
     public void insertEvent(Evenement evenement) throws SQLException {
         System.out.println(INSERT_EVENT_SQL);
         // try-with-resource statement will auto close the connection.
-        try (Connection connection = getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(INSERT_EVENT_SQL)) {
+        try (Connection connection = getConnexion(); PreparedStatement preparedStatement = connection.prepareStatement(INSERT_EVENT_SQL)) {
             preparedStatement.setString(1, evenement.getIntitule());
             preparedStatement.setString(2, evenement.getDescription());
             preparedStatement.setDate(3, evenement.getDate_debut());
@@ -64,13 +64,13 @@ public class EvenementDAO {
         }
     }
 
-    public Evenement selectEvent(int id_evenement) {
+    public Evenement selectEvent(int id) {
         Evenement evenement = null;
         // Step 1: Establishing a Connection
-        try (Connection connection = getConnection();
+        try (Connection connection = getConnexion();
             // Step 2:Create a statement using connection object
             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_EVENT_BY_ID)) {
-            preparedStatement.setInt(1, id_evenement);
+            preparedStatement.setInt(1, id);
             System.out.println(preparedStatement);
             // Step 3: Execute the query or update query
             ResultSet rs = preparedStatement.executeQuery();
@@ -81,7 +81,7 @@ public class EvenementDAO {
                 String description = rs.getString("description");
                 Date date_debut = rs.getDate("date_debut");
                 Date date_fin = rs.getDate("date_fin");
-                evenement = new Evenement(id_evenement, intitule, description, date_debut, date_fin);
+                evenement = new Evenement(id, intitule, description, date_debut, date_fin);
             }
         } catch (SQLException e) {
             printSQLException(e);
@@ -94,7 +94,7 @@ public class EvenementDAO {
         // using try-with-resources to avoid closing resources (boiler plate code)
         List < Evenement > evenements = new ArrayList < > ();
         // Step 1: Establishing a Connection
-        try (Connection connection = getConnection();
+        try (Connection connection = getConnexion();
 
             // Step 2:Create a statement using connection object
             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_EVENTS)) {
@@ -104,12 +104,12 @@ public class EvenementDAO {
 
             // Step 4: Process the ResultSet object.
             while (rs.next()) {
-                int id_evenement = rs.getInt("id_evenement");
+                int id = rs.getInt("id_evenement");
                 String intitule = rs.getString("intitule");
                 String description = rs.getString("description");
                 Date date_debut = rs.getDate("date_debut");
                 Date date_fin = rs.getDate("date_fin");
-                evenements.add(new Evenement(id_evenement, intitule, description, date_debut, date_fin));
+                evenements.add(new Evenement(id, intitule, description, date_debut, date_fin));
             }
         } catch (SQLException e) {
             printSQLException(e);
@@ -117,10 +117,10 @@ public class EvenementDAO {
         return evenements;
     }
 
-    public boolean deleteEvent(int id_evenement) throws SQLException {
+    public boolean deleteEvent(int id) throws SQLException {
         boolean rowDeleted;
-        try (Connection connection = getConnection(); PreparedStatement statement = connection.prepareStatement(DELETE_EVENT_SQL)) {
-            statement.setInt(1, id_evenement);
+        try (Connection connection = getConnexion(); PreparedStatement statement = connection.prepareStatement(DELETE_EVENT_SQL)) {
+            statement.setInt(1, id);
             rowDeleted = statement.executeUpdate() > 0;
         }
         return rowDeleted;
@@ -128,12 +128,12 @@ public class EvenementDAO {
 
     public boolean updateEvent(Evenement evenement) throws SQLException {
         boolean rowUpdated;
-        try (Connection connection = getConnection(); PreparedStatement statement = connection.prepareStatement(UPDATE_EVENT_SQL)) {
+        try (Connection connection = getConnexion(); PreparedStatement statement = connection.prepareStatement(UPDATE_EVENT_SQL)) {
             statement.setString(1, evenement.getIntitule());
             statement.setString(2, evenement.getDescription());
             statement.setDate(3, evenement.getDate_debut());
             statement.setDate(4, evenement.getDate_fin());
-            statement.setInt(5, evenement.getId_evenement());
+            statement.setInt(5, evenement.getId());
 
             rowUpdated = statement.executeUpdate() > 0;
         }

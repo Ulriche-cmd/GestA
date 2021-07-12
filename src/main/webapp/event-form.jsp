@@ -11,7 +11,7 @@
         <body>
 
             <header>
-                <nav class="navbar navbar-expand-md navbar-dark" style="background-color: black">
+                <nav class="navbar navbar-expand-md navbar-dark" style="background-color: green">
                     <div>
                         <a href="<%=request.getContextPath()%>/list_event"  class="navbar-brand"> GestA </a>
                     </div>
@@ -44,7 +44,7 @@
                         </caption>
 
                         <c:if test="${event != null}">
-                            <input type="hidden" name="id_evenement" value="<c:out value='${event.id_evenement}' />" />
+                            <input type="hidden" name="id" value="<c:out value='${event.id}' />" />
                         </c:if>
 
                         <fieldset class="form-group">

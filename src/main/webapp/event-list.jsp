@@ -11,7 +11,7 @@
         <body>
 
             <header>
-                <nav class="navbar navbar-expand-md navbar-dark" style="background-color: black">
+                <nav class="navbar navbar-expand-md navbar-dark" style="background-color: green">
                     <div>
                         <a href="<%=request.getContextPath()%>/list_event" class="navbar-brand"> GestA </a>
                     </div>
@@ -51,7 +51,7 @@
 
                                 <tr>
                                     <td>
-                                        <c:out value="${event.id_evenement}" />
+                                        <c:out value="${event.id}" />
                                     </td>
                                     <td>
                                         <c:out value="${event.intitule}" />
@@ -65,7 +65,7 @@
                                     <td>
                                         <c:out value="${event.date_fin}" />
                                     </td>
-                                    <td><a href="edit_event?id_evenement=<c:out value='${event.id_evenement}' />">Modifier</a> &nbsp;&nbsp;&nbsp;&nbsp; <a href="delete_event?id_evenement=<c:out value='${event.id_evenement}' />">Supprimer</a></td>
+                                    <td><a href="edit_event?id=<c:out value='${event.id}' />">Modifier</a> &nbsp;&nbsp;&nbsp;&nbsp; <a href="delete_event?id=<c:out value='${event.id}' />">Supprimer</a></td>
                                 </tr>
                             </c:forEach>
                             <!-- } -->
