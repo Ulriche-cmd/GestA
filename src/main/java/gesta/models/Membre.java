@@ -18,7 +18,7 @@ public class Membre {
     
  public Membre() {}
     
-    public Membre(String nom, String prenom, Date date_naissance, String adresse, Long telephone, String email, String cni, String role, String login,String mdp) {
+    public Membre(String nom, String prenom, Date date_naissance, String adresse, Long telephone, String email, String cni) {
     	super();
     	this.nom = nom;
     	this.prenom = prenom;
@@ -27,12 +27,9 @@ public class Membre {
     	this.telephone = telephone;
     	this.email = email;
     	this.cni = cni;
-    	this.role = role;
-    	this.login = login;
-    	this.mdp = mdp;
     }
     
-    public Membre(int id, String nom, String prenom, Date date_naissance, String adresse, Long telephone, String email, String cni, String role, String login,String mdp) {
+    public Membre(int id, String nom, String prenom, Date date_naissance, String adresse, Long telephone, String email, String cni) {
     	super();
     	this.id = id;
     	this.nom = nom;
@@ -42,9 +39,6 @@ public class Membre {
     	this.telephone = telephone;
     	this.email = email;
     	this.cni = cni;
-    	this.role = role;
-    	this.login = login;
-    	this.mdp = mdp;
     }
 
 	public int getId() {

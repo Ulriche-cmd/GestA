@@ -39,7 +39,8 @@
 	                                <th>Email</th>
 	                                <th>CNI</th>                                
 	                                <th>Description</th>                                
-	                                <th>Date_demande</th>
+	                                <th>Date_demande</th>                                
+	                                <th>Actions</th>
 	                            </tr>
 	                        </thead>
 	                        <tbody>
@@ -76,7 +77,7 @@
 		                                    </td>
 		                                    <td>
 		                                    	<a class="btn btn-warning" href="rejet_demand?id=<c:out value='${demand.id}' />">Rejeter</a> &nbsp;&nbsp;&nbsp;&nbsp; 
-		                                    	<a class="btn btn-success" href="delete_event?id=<c:out value='${demand.id}' />">Accepter</a>
+		                                    	<a class="btn btn-success" href="accept_demand?id=<c:out value='${demand.id}' />">Accepter</a>
 		                                    </td>
 		                                </tr>
 		                        	</c:if>

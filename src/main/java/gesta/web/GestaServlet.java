@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import java.sql.SQLException;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -36,10 +37,12 @@ public class GestaServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private DemandeDAO demandeDAO;
     private EvenementDAO evenementDAO;
+    private MembresDAO membreDAO;
    
     public void init() {
     	demandeDAO = new DemandeDAO();
     	evenementDAO = new EvenementDAO();
+    	membreDAO = new MembresDAO();
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -73,6 +76,9 @@ public class GestaServlet extends HttpServlet {
                     break;
                 case "/rejet_demand":
                 	rejetDemand(request, response);
+                    break;
+                case "/accept_demand":
+                	acceptDemand(request, response);
                     break;
 //                case "/membres":
 //                    listMember(request, response);
@@ -138,16 +144,7 @@ public class GestaServlet extends HttpServlet {
 		        String cni = request.getParameter("cni");
 		        String description = request.getParameter("description");
 		        Demande newDemande = new Demande(nom, prenom,date_naissance,adresse,telephone,email,cni,description);
-		        int res = demandeDAO.insertDemande(newDemande);
-		        if(res==1)
-		        {
-		        	request.setAttribute("error", "Votre demande a �t� bien pris en compte");
-			        response.sendRedirect("New_Demand");
-		        }
-		        else {
-		        	request.setAttribute("error", "Echec d'envoi");
-			        response.sendRedirect("New_Demand");
-		        }
+		        demandeDAO.insertDemande(newDemande);
  }
     
     private void showConnexion(HttpServletRequest request, HttpServletResponse response)
@@ -175,6 +172,18 @@ public class GestaServlet extends HttpServlet {
     throws SQLException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         boolean res = demandeDAO.rejetDemand(id);
+        response.sendRedirect("list_demand");
+    }
+    
+    private void acceptDemand(HttpServletRequest request, HttpServletResponse response)
+    throws SQLException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        Demande demande = null;
+        demande = demandeDAO.selectOneDemands(id);
+        Membre membre = null;
+        membre = new Membre(demande.getNom(),demande.getPrenom(),demande.getDate_naissance(),demande.getAdresse(),demande.getTelephone(),demande.getEmail(),demande.getCni());
+        int res = membreDAO.insertMembre(membre);
+        demandeDAO.rejetDemand(id);
         response.sendRedirect("list_demand");
     }
     
