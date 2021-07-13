@@ -1,4 +1,5 @@
 package gesta.web;
+import gesta.models.*;
 
 import java.io.IOException;
 
@@ -36,10 +37,12 @@ public class GestaServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private DemandeDAO demandeDAO;
     private EvenementDAO evenementDAO;
+    private CotisationDAO cotisationDAO; 
    
     public void init() {
     	demandeDAO = new DemandeDAO();
     	evenementDAO = new EvenementDAO();
+    	cotisationDAO = new CotisationDAO();
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -74,12 +77,15 @@ public class GestaServlet extends HttpServlet {
 //                case "/addMembre":
 //                    addMember(request, response);
 //                    break;
-//                case "/cotisations":
-//                    listCotisation(request, response);
-//                    break;
-//                case "/addCotisation":
-//                    addCotisation(request, response);
-//                    break;
+                case "/list_cotisations":
+                   listCotisation(request, response);
+                   break;
+                case "/new_cotisation":
+                	showNewForm(request, response);
+                   break;
+                case "/insert_Cotisation":
+                    insertCotisation(request, response);
+                    break;
                 case "/list_event":
                    listEvent(request, response);
                    break;
@@ -234,6 +240,67 @@ public class GestaServlet extends HttpServlet {
     	        int id = Integer.parseInt(request.getParameter("id"));
     	        evenementDAO.deleteEvent(id);
     	        response.sendRedirect("list_event");
+
+    	    }
+    
+    
+    /*FONCTIONS DE LA COTISATIONS*/
+    
+    
+    private void listCotisation(HttpServletRequest request, HttpServletResponse response)
+    	    throws SQLException, IOException, ServletException {
+    	        List < Cotisation > listCotisation = cotisationDAO.selectAllCotisations();
+    	        request.setAttribute("listCotisation", listCotisation);
+    	        RequestDispatcher dispatcher = request.getRequestDispatcher("cotisation-list.jsp");
+    	        dispatcher.forward(request, response);
+    	    }
+
+    	    private void showNewForm(HttpServletRequest request, HttpServletResponse response)
+    	    throws ServletException, IOException {
+    	        RequestDispatcher dispatcher = request.getRequestDispatcher("cotisation-form.jsp");
+    	        dispatcher.forward(request, response);
+    	    }
+
+    	    private void showEditForm(HttpServletRequest request, HttpServletResponse response)
+    	    throws SQLException, ServletException, IOException {
+    	        int id = Integer.parseInt(request.getParameter("id"));
+    	        Cotisation existingCotisation = cotisationDAO.selectCotisation(id);
+    	        RequestDispatcher dispatcher = request.getRequestDispatcher("cotisation-form.jsp");
+    	        request.setAttribute("cotisation", existingCotisation);
+    	        dispatcher.forward(request, response);
+
+    	    }
+
+    	    private void insertCotisation(HttpServletRequest request, HttpServletResponse response)
+    	    throws SQLException, IOException {
+    	        Float montant =Float.parseFloat( request.getParameter("montant"));
+    	        String format = request.getParameter("date_cotisation");
+    	        Date date_cotisation  = Date.valueOf(format);
+    	        int id_evenement = Integer.parseInt(request.getParameter("id_evenement"));
+    	        int id_membre = Integer.parseInt( request.getParameter("id_membre"));
+    	        Cotisation newCotisation = new Cotisation(montant,date_cotisation,id_evenement, id_membre);
+    	        cotisationDAO.insertCotisation(newCotisation);
+    	        response.sendRedirect("list");
+    	    }
+
+    	    private void updateCotisation(HttpServletRequest request, HttpServletResponse response)
+    	    throws SQLException, IOException {
+    	        int id = Integer.parseInt(request.getParameter("id"));
+    	        Float montant =Float.parseFloat( request.getParameter("montant"));
+    	        Date date_cotisation  = Date.valueOf(request.getParameter("date_cotisation"));
+    	        int id_evenement = Integer.parseInt(request.getParameter("id_evenement"));
+    	        int id_membre = Integer.parseInt( request.getParameter("id_membre"));
+
+    	        Cotisation book = new Cotisation(id,montant,date_cotisation,id_evenement, id_membre);
+    	        cotisationDAO.updateCotisation(book);
+    	        response.sendRedirect("list");
+    	    }
+
+    	    private void deleteCotisation(HttpServletRequest request, HttpServletResponse response)
+    	    throws SQLException, IOException {
+    	        int id = Integer.parseInt(request.getParameter("id"));
+    	        cotisationDAO.deleteCotisation(id);
+    	        response.sendRedirect("list");
 
     	    }
     
