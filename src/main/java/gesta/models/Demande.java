@@ -50,6 +50,18 @@ public class Demande {
     	this.etat = etat;
     	this.date_demande = date_demande;
     }
+    
+    public Demande(String nom, String prenom, java.util.Date date_naissance2, String adresse, Long telephone, String email, String cni, String description) {
+    	super();
+    	this.nom = nom;
+    	this.prenom = prenom;
+    	this.date_naissance = (Date) date_naissance2;
+    	this.adresse = adresse;
+    	this.telephone = telephone;
+    	this.email = email;
+    	this.cni = cni;
+    	this.description = description;
+    }
 
 	public int getId() {
 		return id;

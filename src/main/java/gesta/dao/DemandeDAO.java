@@ -6,6 +6,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +23,10 @@ public class DemandeDAO {
     private String jdbcURL = "jdbc:mysql://localhost:3306/gesta?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
     private String jdbcUsername = "root";
     private String jdbcPassword = "";
+    
+
+	 private static final String INSERT_DEMANDE_SQL = "INSERT INTO demande" + "  (nom, prenom, date_naissance, adresse, telephone, email, cni, description, date_demande) VALUES " +
+     " (?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
     private static final String INSERT_DEMANDE_SQL = "";
     private static final String UPDATE_REJET_DEMANDE = "update demande set etat = 1 where id_demande = ?;";
