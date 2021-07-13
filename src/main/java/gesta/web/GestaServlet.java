@@ -1,11 +1,11 @@
 package gesta.web;
 
 import java.io.IOException;
+
+
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.List;
 import java.sql.Date;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -119,13 +119,30 @@ public class GestaServlet extends HttpServlet {
     	dispatcher.forward(request, response);
     }
     
+  //insertion d'une demande
     private void insertDemand(HttpServletRequest request, HttpServletResponse response)
-    throws SQLException, IOException {
-        //String name = request.getParameter("nom");
-        //Demande demande = new Demande();
-        //demandeDAO.insertDemande(newUser);
-        //response.sendRedirect("New_Demand");
-    }
+		    throws SQLException, IOException {
+		        String nom = request.getParameter("nom");
+		        String prenom = request.getParameter("prenom");
+		        String date_naiss = request.getParameter("date_naissance");
+		        Date date_naissance = Date.valueOf(date_naiss);
+		        String adresse = request.getParameter("adresse");
+		        Long telephone= Long.parseLong(request.getParameter("telephone"));
+		        String email = request.getParameter("email");
+		        String cni = request.getParameter("cni");
+		        String description = request.getParameter("description");
+		        Demande newDemande = new Demande(nom, prenom,date_naissance,adresse,telephone,email,cni,description);
+		        int res = demandeDAO.insertDemande(newDemande);
+		        if(res==1)
+		        {
+		        	request.setAttribute("error", "Votre demande a �t� bien pris en compte");
+			        response.sendRedirect("New_Demand");
+		        }
+		        else {
+		        	request.setAttribute("error", "Echec d'envoi");
+			        response.sendRedirect("New_Demand");
+		        }
+ }
     
     private void showConnexion(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {

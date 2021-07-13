@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,8 +21,11 @@ public class DemandeDAO {
     private String jdbcURL = "jdbc:mysql://localhost:3306/gesta?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
     private String jdbcUsername = "root";
     private String jdbcPassword = "";
+    
 
-    private static final String INSERT_DEMANDE_SQL = "";
+	 private static final String INSERT_DEMANDE_SQL = "INSERT INTO demande" + "  (nom, prenom, date_naissance, adresse, telephone, email, cni, description, date_demande) VALUES " +
+     " (?, ?, ?, ?, ?, ?, ?, ?, ?);";
+
     private static final String SELECT_DEMANDE_BY_ID = "";
     private static final String SELECT_ALL_DEMANDE = "select * from demande";
 
@@ -46,27 +51,31 @@ public class DemandeDAO {
         return connection;
     }
     
-    public void insertDemande(Demande demande) throws SQLException {
+  //insertion d'une demande
+    public int insertDemande(Demande demande) throws SQLException {
     	System.out.println(INSERT_DEMANDE_SQL);
         // try-with-resource statement will auto close the connection.
         try (
         		Connection connection = getConnexion(); 
         		PreparedStatement preparedStatement = connection.prepareStatement(INSERT_DEMANDE_SQL)) {
-	            preparedStatement.setString(2, demande.getNom());
-	            preparedStatement.setString(3, demande.getPrenom());
-	            preparedStatement.setDate(4, demande.getDate_naissance());
-	            preparedStatement.setString(5, demande.getAdresse());
-	            preparedStatement.setLong(6, demande.getTelephone());
-	            preparedStatement.setString(7, demande.getEmail());
-	            preparedStatement.setString(8, demande.getCni());
-	            preparedStatement.setString(9, demande.getDescription());
-	            preparedStatement.setBoolean(10, demande.getEtat());
-	            preparedStatement.setDate(11, demande.getDate_demande());
+	            preparedStatement.setString(1, demande.getNom());
+	            preparedStatement.setString(2, demande.getPrenom());
+	            preparedStatement.setDate(3, demande.getDate_naissance());
+	            preparedStatement.setString(4, demande.getAdresse());
+	            preparedStatement.setLong(5, demande.getTelephone());
+	            preparedStatement.setString(6, demande.getEmail());
+	            preparedStatement.setString(7, demande.getCni());
+	            preparedStatement.setString(8, demande.getDescription());
+//		        LocalDateTime myDateObj = LocalDateTime.now();
+//		        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+		        preparedStatement.setString(9, "2021-02-20");
 	            System.out.println(preparedStatement);
 	            preparedStatement.executeUpdate();
+	            return 1;
         }catch (SQLException e) {
         	printSQLException(e);
         }
+		return 0;
     }
     
     /** la suite des fonctions métier seront écrites ici **/
