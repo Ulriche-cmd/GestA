@@ -11,18 +11,18 @@ public class Demande {
 	protected int id;
     protected String 	nom;
     protected String 	prenom;
-    protected Date 	date_naissance;
+    protected Date 		date_naissance;
     protected String 	adresse;
     protected Long   	telephone;
     protected String 	email;
     protected String 	cni;
     protected String 	description;
-    protected Boolean 	etat;
-    protected Date 		date_demande;
+    protected int 		etat;
+    protected String 	date_demande;
     
     public Demande() {}
     
-    public Demande(String nom, String prenom, Date date_naissance, String adresse, Long telephone, String email, String cni, String description, Boolean etat,Date date_demande) {
+    public Demande(String nom, String prenom, Date date_naissance, String adresse, Long telephone, String email, String cni, String description, int etat,String date_demande) {
     	super();
     	this.nom = nom;
     	this.prenom = prenom;
@@ -36,7 +36,7 @@ public class Demande {
     	this.date_demande = date_demande;
     }
     
-    public Demande(int id, String nom, String prenom, Date date_naissance, String adresse, Long telephone, String email, String cni, String description, Boolean etat,Date date_demande) {
+    public Demande(int id, String nom, String prenom, Date date_naissance, String adresse, Long telephone, String email, String cni, String description, int etat,String date_demande) {
     	super();
     	this.id = id;
     	this.nom = nom;
@@ -123,19 +123,19 @@ public class Demande {
 		this.description = description;
 	}
 
-	public Boolean getEtat() {
+	public int getEtat() {
 		return etat;
 	}
 
-	public void setEtat(Boolean etat) {
+	public void setEtat(int etat) {
 		this.etat = etat;
 	}
 
-	public Date getDate_demande() {
+	public String getDate_demande() {
 		return date_demande;
 	}
 
-	public void setDate_demande(Date date_demande) {
+	public void setDate_demande(String date_demande) {
 		this.date_demande = date_demande;
 	}
     

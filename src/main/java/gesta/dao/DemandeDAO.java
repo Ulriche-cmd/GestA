@@ -1,6 +1,7 @@
 package gesta.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import gesta.models.Demande;
+import gesta.models.Evenement;
 
 /**
  * 
@@ -21,7 +23,7 @@ public class DemandeDAO {
     private String jdbcPassword = "";
 
     private static final String INSERT_DEMANDE_SQL = "";
-    private static final String SELECT_DEMANDE_BY_ID = "";
+    private static final String UPDATE_REJET_DEMANDE = "update demande set etat = 1 where id_demande = ?;";
     private static final String SELECT_ALL_DEMANDE = "select * from demande";
 
     public DemandeDAO() {}
@@ -47,26 +49,52 @@ public class DemandeDAO {
     }
     
     public void insertDemande(Demande demande) throws SQLException {
-    	System.out.println(INSERT_DEMANDE_SQL);
-        // try-with-resource statement will auto close the connection.
-        try (
-        		Connection connection = getConnexion(); 
-        		PreparedStatement preparedStatement = connection.prepareStatement(INSERT_DEMANDE_SQL)) {
-	            preparedStatement.setString(2, demande.getNom());
-	            preparedStatement.setString(3, demande.getPrenom());
-	            preparedStatement.setDate(4, demande.getDate_naissance());
-	            preparedStatement.setString(5, demande.getAdresse());
-	            preparedStatement.setLong(6, demande.getTelephone());
-	            preparedStatement.setString(7, demande.getEmail());
-	            preparedStatement.setString(8, demande.getCni());
-	            preparedStatement.setString(9, demande.getDescription());
-	            preparedStatement.setBoolean(10, demande.getEtat());
-	            preparedStatement.setDate(11, demande.getDate_demande());
-	            System.out.println(preparedStatement);
-	            preparedStatement.executeUpdate();
-        }catch (SQLException e) {
-        	printSQLException(e);
+    	
+    }
+    
+    public List < Demande > selectAllDemands() {
+
+        // using try-with-resources to avoid closing resources (boiler plate code)
+        List < Demande > demandes = new ArrayList < > ();
+        // Step 1: Establishing a Connection
+        try (Connection connection = getConnexion();
+
+            // Step 2:Create a statement using connection object
+            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_DEMANDE)) {
+            System.out.println(preparedStatement);
+            // Step 3: Execute the query or update query
+            ResultSet rs = preparedStatement.executeQuery();
+
+            // Step 4: Process the ResultSet object.
+            while (rs.next()) {
+                int id = rs.getInt("id_demande");
+                String nom = rs.getString("nom");
+                String prenom = rs.getString("prenom");
+                Date date_naissance = rs.getDate("date_naissance");
+                String adresse = rs.getString("adresse");
+                System.out.println("lecture telephone");
+                Long telephone = rs.getLong("telephone");
+                System.out.println(" succes lecture telephone");
+                String email = rs.getString("email");
+                String cni = rs.getString("cni");
+                String description = rs.getString("description");
+                int etat = rs.getInt("etat");
+                String date_demande = rs.getString("date_demande");
+                demandes.add(new Demande(id, nom, prenom, date_naissance,adresse,telephone,email,cni,description,etat,date_demande));
+            }
+        } catch (SQLException e) {
+            printSQLException(e);
         }
+        return demandes;
+    }
+    
+    public boolean rejetDemand(int id) throws SQLException {
+        boolean rowUpdated;
+        try (Connection connection = getConnexion(); PreparedStatement statement = connection.prepareStatement(UPDATE_REJET_DEMANDE)) {
+            statement.setInt(1, id);
+            rowUpdated = statement.executeUpdate() > 0;
+        }
+        return rowUpdated;
     }
     
     /** la suite des fonctions métier seront écrites ici **/

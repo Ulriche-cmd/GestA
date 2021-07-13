@@ -56,6 +56,9 @@ public class GestaServlet extends HttpServlet {
             	case "/":
 	                showConnexion(request, response);
 	                break;
+            	case "/nav":
+	                showConnexion2(request, response);
+	                break;
             	case "/New_Demand":
             		newDemand(request, response);
             		break;
@@ -65,8 +68,11 @@ public class GestaServlet extends HttpServlet {
                 case "/connexion":
                     showConnexion(request, response);
                     break;
-                case "/demandes":
+                case "/list_demand":
                     listDemand(request, response);
+                    break;
+                case "/rejet_demand":
+                	rejetDemand(request, response);
                     break;
 //                case "/membres":
 //                    listMember(request, response);
@@ -132,14 +138,27 @@ public class GestaServlet extends HttpServlet {
     	RequestDispatcher dispatcher = request.getRequestDispatcher("authentification.jsp");
     	dispatcher.forward(request, response);
     }
+    
+    private void showConnexion2(HttpServletRequest request, HttpServletResponse response)
+    	    throws ServletException, IOException {
+    	    	RequestDispatcher dispatcher = request.getRequestDispatcher("navbar.jsp");
+    	    	dispatcher.forward(request, response);
+    	    }
 
 
     private void listDemand(HttpServletRequest request, HttpServletResponse response)
     throws SQLException, IOException, ServletException {
-        ///Demande < Demande > listDemand = DemandeDAO.selectAllDemande();
-        //request.setAttribute("listDemande", listDemand);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("demandes.jsp");
+        List < Demande > listDemand = demandeDAO.selectAllDemands();
+        request.setAttribute("demandes", listDemand);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("demand-list.jsp");
         dispatcher.forward(request, response);
+    }
+    
+    private void rejetDemand(HttpServletRequest request, HttpServletResponse response)
+    throws SQLException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        boolean res = demandeDAO.rejetDemand(id);
+        response.sendRedirect("list_demand");
     }
     
     private void error(HttpServletRequest request, HttpServletResponse response)
