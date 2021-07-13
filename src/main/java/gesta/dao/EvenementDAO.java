@@ -2,7 +2,6 @@ package gesta.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-<<<<<<< HEAD
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,9 +10,6 @@ import java.sql.Date;
 import java.util.List;
 
 import gesta.models.Evenement;
-=======
-import java.sql.SQLException;
->>>>>>> 0fa11639cf517e9c70ddb884b0a102c2c851d909
 
 public class EvenementDAO {
 
@@ -21,17 +17,12 @@ public class EvenementDAO {
     private String jdbcUsername = "root";
     private String jdbcPassword = "";
 
-<<<<<<< HEAD
     private static final String INSERT_EVENT_SQL = "INSERT INTO evenement" + "  (intitule, description, date_debut, date_fin) VALUES " +
             " (?, ?, ?, ?);";
     private static final String SELECT_EVENT_BY_ID = "select * from evenement where id_evenement =?";
     private static final String SELECT_ALL_EVENTS= "select * from evenement";
     private static final String DELETE_EVENT_SQL = "delete from evenement where id_evenement = ?";
     private static final String UPDATE_EVENT_SQL = "update evenement set intitule = ?,description= ?, date_debut =?, date_fin =? where id_evenement = ?";
-=======
-    private static final String INSERT_EVENEMENT_SQL = "";
-    private static final String SELECT_ALL_EVENEMENT= "select * from evenement";
->>>>>>> 0fa11639cf517e9c70ddb884b0a102c2c851d909
 
     public EvenementDAO() {}
 
@@ -40,7 +31,6 @@ public class EvenementDAO {
         try {
         	System.out.println( "Chargement du driver..." );
             Class.forName( "com.mysql.jdbc.Driver" );
-<<<<<<< HEAD
             System.out.println( "Driver charge !" );
         } catch (ClassNotFoundException e) {
         	System.out.println( "Erreur lors du chargement : le driver n'a pas ete trouve dans le classpath ! <br/>"+e.getMessage());
@@ -50,24 +40,12 @@ public class EvenementDAO {
         	System.out.println( "Connexion a� la base de donnees..." );
         	connection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
         	System.out.println( "Connexion reussie !" );
-=======
-            System.out.println( "Driver chargé !" );
-        } catch (ClassNotFoundException e) {
-        	System.out.println( "Erreur lors du chargement : le driver n'a pas été trouvé dans le classpath ! <br/>"+e.getMessage());
-        }
-        
-        try {
-        	System.out.println( "Connexion à la base de données..." );
-        	connection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
-        	System.out.println( "Connexion réussie !" );
->>>>>>> 0fa11639cf517e9c70ddb884b0a102c2c851d909
         }catch ( SQLException e ) {
         	System.out.println( "Erreur lors de la connexion : <br/>"+ e.getMessage() );
         }
         return connection;
     }
     
-<<<<<<< HEAD
     
     /** la suite des fonctions metier seront ecrites ici **/
     
@@ -163,9 +141,6 @@ public class EvenementDAO {
     }
     
     
-=======
-    /** la suite des fonctions métier seront écrites ici **/
->>>>>>> 0fa11639cf517e9c70ddb884b0a102c2c851d909
     
     private void printSQLException(SQLException ex) {
         for (Throwable e: ex) {
