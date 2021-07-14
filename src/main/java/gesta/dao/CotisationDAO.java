@@ -114,6 +114,7 @@ public class CotisationDAO {
 	                int id_evenement= rs.getInt("id_evenement");
 	                int id_membre =rs.getInt("id_membre");
 	                
+	         
 	                cotisation.add( new Cotisation(id, montant, date_cotisation, id_evenement,id_membre));
 	            }
 	        } catch (SQLException e) {
