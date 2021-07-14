@@ -59,8 +59,8 @@ public class GestaServlet extends HttpServlet {
             	case "/":
 	                showConnexion(request, response);
 	                break;
-            	case "/nav":
-	                showConnexion2(request, response);
+            	case "/navbar":
+            		showNavbar(request, response);
 	                break;
             	case "/New_Demand":
             		newDemand(request, response);
@@ -153,11 +153,11 @@ public class GestaServlet extends HttpServlet {
     	dispatcher.forward(request, response);
     }
     
-    private void showConnexion2(HttpServletRequest request, HttpServletResponse response)
-    	    throws ServletException, IOException {
-    	    	RequestDispatcher dispatcher = request.getRequestDispatcher("navbar.jsp");
-    	    	dispatcher.forward(request, response);
-    	    }
+    private void showNavbar(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
+    	RequestDispatcher dispatcher = request.getRequestDispatcher("navbar.jsp");
+    	dispatcher.forward(request, response);
+    }
 
 
     private void listDemand(HttpServletRequest request, HttpServletResponse response)
