@@ -44,7 +44,7 @@ public class GestaServlet extends HttpServlet {
     	evenementDAO = new EvenementDAO();
     	membreDAO = new MembresDAO();
     }
-
+git 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         doGet(request, response);
@@ -140,7 +140,7 @@ public class GestaServlet extends HttpServlet {
     
   //insertion d'une demande
     private void insertDemand(HttpServletRequest request, HttpServletResponse response)
-		    throws SQLException, IOException {
+		    throws SQLException, IOException, ServletException {
 		        String nom = request.getParameter("nom");
 		        String prenom = request.getParameter("prenom");
 		        String date_naiss = request.getParameter("date_naissance");
@@ -151,7 +151,18 @@ public class GestaServlet extends HttpServlet {
 		        String cni = request.getParameter("cni");
 		        String description = request.getParameter("description");
 		        Demande newDemande = new Demande(nom, prenom,date_naissance,adresse,telephone,email,cni,description);
-		        demandeDAO.insertDemande(newDemande);
+		        int res = demandeDAO.insertDemande(newDemande);
+		        if(res==1)
+		        {
+		        	request.setAttribute("success", "Votre demande a ete bien pris en compte");
+		        	RequestDispatcher dispatcher = request.getRequestDispatcher("demande-form.jsp");
+		        	dispatcher.forward(request, response);
+		        }
+		        else {
+		        	request.setAttribute("error", "Echec d'envoi");
+		        	RequestDispatcher dispatcher = request.getRequestDispatcher("demande-form.jsp");
+		        	dispatcher.forward(request, response);
+		        }
  }
     
     private void showConnexion(HttpServletRequest request, HttpServletResponse response)

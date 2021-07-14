@@ -9,14 +9,26 @@
         </head>
 
         <body>
-        	<header>
+            <header>
                 <jsp:include page="navbar.jsp"></jsp:include>
             </header>
-            <br>
-            <c:if test="${error != null}">
-            	Success
-            </c:if>
             <div class="container col-md-5">
+            	<br>
+	            <c:if test="${success != null}">
+	            	<center> 
+		            	<div class="alert alert-success" role="alert">
+						  <c:out value='${success}' /> 
+						</div>
+	            	</center>
+	            </c:if>
+	            <c:if test="${error != null}">
+	            	<center> 
+		            	<div class="alert alert-success" role="alert">
+						  <c:out value='${error}' /> 
+						</div>
+	            	</center>
+	            </c:if>
+	            <br>
                 <div class="card">
                     <div class="card-body">
                         <c:if test="${demande == null}">
@@ -58,7 +70,7 @@
                         </fieldset>                      
 
                         <fieldset class="form-group">
-                            <label>Email</label> <input type="text" value="<c:out value='${demande.email}' />" class="form-control" name="email" required="required">
+                            <label for="email">Email</label> <input type="email" value="<c:out value='${demande.email}' />" class="form-control" name="email" required="required">
                         </fieldset>
                         
                         <fieldset class="form-group">
@@ -66,7 +78,10 @@
                         </fieldset>
                         
                         <fieldset class="form-group">
-                            <label>Parlez nous de vous</label> <input type="text" value="<c:out value='${demande.description}' />" class="form-control" name="description" required="required">
+                            <label>Parlez nous de vous</label>
+                            <textarea  value="<c:out value='${demande.description}' />" class="form-control" name="description" required="required">
+							</textarea>
+                            
                         </fieldset>
                         <center> <button type="submit" class="btn btn-success">Soumettre</button> <center>
                         </form>

@@ -53,8 +53,33 @@ public class DemandeDAO {
         return connection;
     }
     
-    public void insertDemande(Demande demande) throws SQLException {
-    	
+  //insertion d'une demande
+    public int insertDemande(Demande demande) throws SQLException {
+    	System.out.println(INSERT_DEMANDE_SQL);
+        // try-with-resource statement will auto close the connection.
+        try (
+        		Connection connection = getConnexion(); 
+        		PreparedStatement preparedStatement = connection.prepareStatement(INSERT_DEMANDE_SQL)) {
+	            preparedStatement.setString(1, demande.getNom());
+	            preparedStatement.setString(2, demande.getPrenom());
+	            preparedStatement.setDate(3, demande.getDate_naissance());
+	            preparedStatement.setString(4, demande.getAdresse());
+	            preparedStatement.setLong(5, demande.getTelephone());
+	            preparedStatement.setString(6, demande.getEmail());
+	            preparedStatement.setString(7, demande.getCni());
+	            preparedStatement.setString(8, demande.getDescription());
+	            
+	            long millis=System.currentTimeMillis();  
+	            Date today =new Date(millis); 
+	            
+	            preparedStatement.setDate(9, today);
+	            System.out.println(preparedStatement);
+	            preparedStatement.executeUpdate();
+	            return 1;
+        }catch (SQLException e) {
+        	printSQLException(e);
+        }
+		return 0;
     }
     
     public List < Demande > selectAllDemands() {
