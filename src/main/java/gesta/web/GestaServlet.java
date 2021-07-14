@@ -44,9 +44,7 @@ public class GestaServlet extends HttpServlet {
     	demandeDAO = new DemandeDAO();
     	evenementDAO = new EvenementDAO();
     	membreDAO = new MembresDAO();
-    	cotisationDAO = new CotisationDAO();
     }
-git 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         doGet(request, response);
