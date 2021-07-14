@@ -1,6 +1,7 @@
 package gesta.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,8 +22,8 @@ public class MembresDAO {
     private String jdbcUsername = "root";
     private String jdbcPassword = "";
 
-    private static final String INSERT_MEMBRE_SQL = "";
-    private static final String SELECT_ALL_MEMBRE = "select * from membre";
+    private static final String INSERT_MEMBRE_SQL = "insert into membre"+"(nom,prenom,date_naissance,adresse,telephone,email,cni) VALUES"+"(?,?,?,?,?,?,?);";
+    private static final String SELECT_ALL_MEMBRE = "select * from membre;";
 
     public MembresDAO() {}
 
@@ -44,6 +45,60 @@ public class MembresDAO {
         	System.out.println( "Erreur lors de la connexion : <br/>"+ e.getMessage() );
         }
         return connection;
+    }
+    
+    public int insertMembre(Membre membre) throws SQLException {
+    	System.out.println(INSERT_MEMBRE_SQL);
+        // try-with-resource statement will auto close the connection.
+        try (
+        		Connection connection = getConnexion(); 
+        		PreparedStatement preparedStatement = connection.prepareStatement(INSERT_MEMBRE_SQL)) {
+	            preparedStatement.setString(1, membre.getNom());
+	            preparedStatement.setString(2, membre.getPrenom());
+	            preparedStatement.setDate(3, membre.getDate_naissance());
+	            preparedStatement.setString(4, membre.getAdresse());
+	            preparedStatement.setLong(5, membre.getTelephone());
+	            preparedStatement.setString(6, membre.getEmail());
+	            preparedStatement.setString(7, membre.getCni());
+	            System.out.println(preparedStatement);
+	            preparedStatement.executeUpdate();
+	            return 1;
+        }catch (SQLException e) {
+        	printSQLException(e);
+        }
+		return 0;
+    }
+    
+    public List < Membre > selectAllMembres() {
+
+        // using try-with-resources to avoid closing resources (boiler plate code)
+        List < Membre > membres = new ArrayList < > ();
+        // Step 1: Establishing a Connection
+        try (Connection connection = getConnexion();
+
+            // Step 2:Create a statement using connection object
+            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_MEMBRE)) {
+            System.out.println(preparedStatement);
+            // Step 3: Execute the query or update query
+            ResultSet rs = preparedStatement.executeQuery();
+
+            // Step 4: Process the ResultSet object.
+            while (rs.next()) {
+                int id = rs.getInt("id_membre");
+                String nom = rs.getString("nom");
+                String prenom = rs.getString("prenom");
+                Date date_naissance = rs.getDate("date_naissance");
+                String adresse = rs.getString("adresse");
+                Long telephone = rs.getLong("telephone");
+                String email = rs.getString("email");
+                String cni = rs.getString("cni");
+                String role = rs.getString("role");
+                membres.add(new Membre(id, nom, prenom, date_naissance,adresse,telephone,email,cni,role));
+            }
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return membres;
     }
     
     /** la suite des fonctions métier seront écrites ici **/

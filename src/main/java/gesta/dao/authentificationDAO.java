@@ -7,11 +7,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import gesta.models.authentification;
+import gesta.models.Membre;
 
 public class authentificationDAO {
 
-    public boolean validate(authentification authentification) throws ClassNotFoundException {
+    public boolean validate(Membre Membre) throws ClassNotFoundException {
         boolean status = false;
 
         Class.forName("com.mysql.jdbc.Driver");
@@ -22,8 +22,8 @@ public class authentificationDAO {
             // Step 2:Create a statement using connection object
             PreparedStatement preparedStatement = connection
             .prepareStatement("select * from membre where login = ? and mdp = ? and role = ?")) {
-            preparedStatement.setString(1, authentification.getlogin());
-            preparedStatement.setString(2, authentification.getmdp());
+            preparedStatement.setString(1, Membre.getLogin());
+            preparedStatement.setString(2, Membre.getMdp());
             preparedStatement.setString(3, "gestionnaire");
 
             System.out.println(preparedStatement);

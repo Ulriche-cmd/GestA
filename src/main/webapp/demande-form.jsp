@@ -1,59 +1,92 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+ pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
         <html>
 
         <head>
-        	
-            <title>Connexion admin</title>
+            <title>Soumission des demandes</title>
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        	<style>
-		      body{
-		      background-color: #DADBDC;
-		      font-family: sans-serif;;
-		      }
-		     
-		      
-		    </style>
         </head>
 
         <body>
-			<br><br><br>
-			<div class="row">
-			
-			<div class="column"><img src="<c:url value="/image/img1.PNG"/>"/></div>
-            <div class="column col-md-4">
+            <header>
+                <jsp:include page="navbar.jsp"></jsp:include>
+            </header>
+            <div class="container col-md-5">
+            	<br>
+	            <c:if test="${success != null}">
+	            	<center> 
+		            	<div class="alert alert-success" role="alert">
+						  <c:out value='${success}' /> 
+						</div>
+	            	</center>
+	            </c:if>
+	            <c:if test="${error != null}">
+	            	<center> 
+		            	<div class="alert alert-success" role="alert">
+						  <c:out value='${error}' /> 
+						</div>
+	            	</center>
+	            </c:if>
+	            <br>
                 <div class="card">
                     <div class="card-body">
-                        <form action="<%=request.getContextPath()%>/"  method="post">
-                            
-                            <h2> Connectez-vous</h2>
-                            
-	                        <fieldset class="form-group">
-	                            <label>LOGIN:</label> <input type="text" class="form-control" name="login" required="required">
-	                        </fieldset>
-	                        
-	                        <fieldset class="form-group">
-	                            <label>PASSWORD:</label> <input type="password"  class="form-control" name="mdp" required="required">
-	                        </fieldset>
-	                        
-	                        <center><button type="submit" value="submit" class="btn btn-success">SE CONNECTER</button></center>
-            
-	                       	<c:if test="${error!= null}">
-	                       	<br><br>
-	                        <h5><c:out value="${error}"/></h5>
-	                       	</c:if>
-	                        <br>
-                        </form>
-                        <form action="">
-                        <h6>vous etes nouveau?</h6>
-                        <h6>veuillez vous incrire en cliquant sur ce bouton</h6>
-                        <center><button type="submit" class="btn btn-success">INSCRIVEZ VOUS</button></center>
-                        </form>
+                        <c:if test="${demande == null}">
+                            <form action="<%=request.getContextPath()%>/insert_Demand" method="post">
+                        </c:if>
+                        <caption>
+                            <h2>
+                                <c:if test="${demande != null}">
+                                    Edit Demande
+                                </c:if>
+                                <c:if test="${demande == null}">
+                                   Formuler une nouvelle  Demande
+                                </c:if>
+                            </h2>
+                        </caption>
+
+                        <c:if test="${demande != null}">
+                            <input type="hidden" name="id" value="<c:out value='${demande.id}' />" />
+                        </c:if>
+
+                        <fieldset class="form-group">
+                            <label>Nom du Postulant</label> <input type="text" value="<c:out value='${demande.nom}' />" class="form-control" name="nom" required="required">
+                        </fieldset>
                         
+                        <fieldset class="form-group">
+                            <label>Prenom du Postulant</label> <input type="text" value="<c:out value='${demande.prenom}' />" class="form-control" name="prenom" required="required">
+                        </fieldset>
+                        
+                        <fieldset class="form-group">
+                            <label>Date de naissance</label> <input type="date" value="<c:out value='${demande.date_naissance}' />" class="form-control" name="date_naissance" required="required">
+                        </fieldset>	
+                        
+                        <fieldset class="form-group">
+                            <label>Adresse</label> <input type="text" value="<c:out value='${demande.adresse}' />" class="form-control" name="adresse" required="required">
+                        </fieldset>
+                        
+                        <fieldset class="form-group">
+                            <label>Telephone</label> <input type="text" value="<c:out value='${demande.telephone}' />" class="form-control" name="telephone" required="required">
+                        </fieldset>                      
+
+                        <fieldset class="form-group">
+                            <label for="email">Email</label> <input type="email" value="<c:out value='${demande.email}' />" class="form-control" name="email" required="required">
+                        </fieldset>
+                        
+                        <fieldset class="form-group">
+                            <label>CNI</label> <input type="text" value="<c:out value='${demande.cni}' />" class="form-control" name="cni" required="required">
+                        </fieldset>
+                        
+                        <fieldset class="form-group">
+                            <label>Parlez nous de vous</label>
+                            <textarea  value="<c:out value='${demande.description}' />" class="form-control" name="description" required="required">
+							</textarea>
+                            
+                        </fieldset>
+                        <center> <button type="submit" class="btn btn-success">Soumettre</button> <center>
+                        </form>
                     </div>
                 </div>
-            </div>
             </div>
         </body>
 
