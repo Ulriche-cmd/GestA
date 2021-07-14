@@ -9,4 +9,14 @@
 		<exception-type>java.lang.Exception</exception-type>
 		<location>/Error.jsp</location>
 	</error-page>
+	<servlet>
+	    <description>Servlet fournissant les images</description>
+	    <display-name>ImageServlet</display-name>
+	    <servlet-name>ImageServlet</servlet-name>
+	</servlet>
+	
+	  <servlet-mapping>
+	    <servlet-name>ImageServlet</servlet-name>
+	    <url-pattern>/images/*</url-pattern>
+	  </servlet-mapping>
 </web-app>
