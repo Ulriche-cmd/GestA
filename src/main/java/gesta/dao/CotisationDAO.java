@@ -34,15 +34,15 @@ public class CotisationDAO {
 	        try {
 	        	System.out.println( "Chargement du driver..." );
 	            Class.forName( "com.mysql.jdbc.Driver" );
-	            System.out.println( "Driver chargé !" );
+	            System.out.println( "Driver chargï¿½ !" );
 	        } catch (ClassNotFoundException e) {
-	        	System.out.println( "Erreur lors du chargement : le driver n'a pas été trouvé dans le classpath ! <br/>"+e.getMessage());
+	        	System.out.println( "Erreur lors du chargement : le driver n'a pas ï¿½tï¿½ trouvï¿½ dans le classpath ! <br/>"+e.getMessage());
 	        }
 	        
 	        try {
-	        	System.out.println( "Connexion à la base de données..." );
+	        	System.out.println( "Connexion ï¿½ la base de donnï¿½es..." );
 	        	connection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
-	        	System.out.println( "Connexion réussie !" );
+	        	System.out.println( "Connexion rï¿½ussie !" );
 	        }catch ( SQLException e ) {
 	        	System.out.println( "Erreur lors de la connexion : <br/>"+ e.getMessage() );
 	        }
@@ -114,7 +114,6 @@ public class CotisationDAO {
 	                int id_evenement= rs.getInt("id_evenement");
 	                int id_membre =rs.getInt("id_membre");
 	                
-	         
 	                cotisation.add( new Cotisation(id, montant, date_cotisation, id_evenement,id_membre));
 	            }
 	        } catch (SQLException e) {
