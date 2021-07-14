@@ -1,30 +1,25 @@
 package gesta.web;
 
 import java.io.IOException;
-
-
 import java.sql.SQLException;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import gesta.dao.DemandeDAO;
 import gesta.models.Demande;
-
 import gesta.dao.MembresDAO;
 import gesta.models.Membre;
 import gesta.dao.CotisationDAO;
 import gesta.models.Cotisation;
-
 import gesta.dao.EvenementDAO;
 import gesta.models.Evenement;
+import gesta.dao.authentificationDAO;
 
 /**
  * 
@@ -36,6 +31,7 @@ import gesta.models.Evenement;
 public class GestaServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private DemandeDAO demandeDAO;
+	private authentificationDAO authentificationDAO;
     private EvenementDAO evenementDAO;
     private MembresDAO membreDAO;
     private CotisationDAO cotisationDAO;
@@ -44,6 +40,7 @@ public class GestaServlet extends HttpServlet {
     	demandeDAO = new DemandeDAO();
     	evenementDAO = new EvenementDAO();
     	membreDAO = new MembresDAO();
+		authentificationDAO = new authentificationDAO();
     }
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
@@ -56,7 +53,7 @@ public class GestaServlet extends HttpServlet {
 
         try {
             switch (action) {
-            	case "/":
+            	case "/authentification":
 	                showConnexion(request, response);
 	                break;
             	case "/navbar":
@@ -69,7 +66,7 @@ public class GestaServlet extends HttpServlet {
             		insertDemand(request, response);
             		break;
                 case "/connexion":
-                    showConnexion(request, response);
+                    logIn(request, response);
                     break;
                 case "/list_demand":
                     listDemand(request, response);
@@ -147,6 +144,12 @@ public class GestaServlet extends HttpServlet {
     	dispatcher.forward(request, response);
     }
     
+    private void showConnexion(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
+    	RequestDispatcher dispatcher = request.getRequestDispatcher("authentification.jsp");
+    	dispatcher.forward(request, response);
+    }
+    
   //insertion d'une demande
     private void insertDemand(HttpServletRequest request, HttpServletResponse response)
 		    throws SQLException, IOException, ServletException {
@@ -174,11 +177,28 @@ public class GestaServlet extends HttpServlet {
 		        }
  }
     
-    private void showConnexion(HttpServletRequest request, HttpServletResponse response)
+    private void logIn(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-    	RequestDispatcher dispatcher = request.getRequestDispatcher("authentification.jsp");
-    	dispatcher.forward(request, response);
-    }
+    	String login = request.getParameter("login");
+        String mdp = request.getParameter("mdp");
+
+        try {
+            if (authentificationDAO.validate(login, mdp)) {
+                //HttpSession session = request.getSession();
+                // session.setAttribute("login",login);
+                response.sendRedirect("list_demand");
+            } else {
+                //HttpSession session = request.getSession();
+                //session.setAttribute("login", login);
+                //request.setAttribute("error", "echec de connexion");
+                //RequestDispatcher dispatcher = request.getRequestDispatcher("demand-list.jsp");
+            	//dispatcher.forward(request, response);
+            	response.sendRedirect("authentification");
+            }
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+	}
     
     private void showNavbar(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
