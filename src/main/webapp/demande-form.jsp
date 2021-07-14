@@ -9,6 +9,9 @@
         </head>
 
         <body>
+        	<header>
+                <jsp:include page="navbar.jsp"></jsp:include>
+            </header>
             <br>
             <c:if test="${error != null}">
             	Success

@@ -29,7 +29,7 @@ public class Membre {
     	this.cni = cni;
     }
     
-    public Membre(int id, String nom, String prenom, Date date_naissance, String adresse, Long telephone, String email, String cni) {
+    public Membre(int id, String nom, String prenom, Date date_naissance, String adresse, Long telephone, String email, String cni, String role) {
     	super();
     	this.id = id;
     	this.nom = nom;
@@ -39,6 +39,7 @@ public class Membre {
     	this.telephone = telephone;
     	this.email = email;
     	this.cni = cni;
+    	this.role = role;
     }
 
 	public int getId() {

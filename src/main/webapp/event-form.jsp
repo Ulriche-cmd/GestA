@@ -9,19 +9,10 @@
         </head>
 
         <body>
-
             <header>
-                <nav class="navbar navbar-expand-md navbar-dark" style="background-color: green">
-                    <div>
-                        <a href="<%=request.getContextPath()%>/list_event"  class="navbar-brand"> GestA </a>
-                    </div>
-
-                    <ul class="navbar-nav">
-                        <li><a href="<%=request.getContextPath()%>/list_event" class="nav-link active">Evenements</a></li>
-                    </ul>
-                </nav>
+                <jsp:include page="navbar.jsp"></jsp:include>
             </header>
-            <br>
+            <br><br>
             <div class="container col-md-5">
                 <div class="card">
                     <div class="card-body">

@@ -5,8 +5,7 @@
 
         <head>
             <title>Evenements</title>
-            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 		</head>
 
         <body>
@@ -25,9 +24,9 @@
 				            Lien de navigation vers 
 				          </a>
 						  <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
-						    <li><a class="dropdown-item active" href="<%=request.getContextPath()%>/list-demand">Demandes</a></li>
+						    <li><a class="dropdown-item active" href="<%=request.getContextPath()%>/list_demand">Demandes</a></li>
 						    <li><a class="dropdown-item" href="<%=request.getContextPath()%>/list-member">Membres</a></li>
-						    <li><a class="dropdown-item" href="<%=request.getContextPath()%>/list-event">Evenements</a></li>
+						    <li><a class="dropdown-item" href="<%=request.getContextPath()%>/list_event">Evenements</a></li>
 						    <li><a class="dropdown-item" href="<%=request.getContextPath()%>/list-cotisation">Cotisations</a></li>
 						    <li><hr class="dropdown-divider"></li>
 						    <li><a class="dropdown-item" href="<%=request.getContextPath()%>/list-logOut">Déconnexion</a></li>

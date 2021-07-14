@@ -9,19 +9,19 @@
         </head>
         <style>
         	.contain{
-        		padding: 0px 100px 100px 100px;
+        		padding:100px 100px;
         	}
         </style>
         <body>
             <header>
                 <jsp:include page="navbar.jsp"></jsp:include>
             </header>
-            <br><br>
+            <br>
             <div class="row">
                 <!-- <div class="alert alert-success" *ngIf='message'>{{message}}</div> -->
-                <div>
-                    <div class="contain">
-	                    <h3 class="text-center">Liste des demandes</h3>
+                <div class="container">
+                    <div class="container">
+	                    <h3 class="text-center">Liste des Membres</h3>
 	                    <hr>
 	                    <br>
 	                    <div class="text-left">
@@ -38,49 +38,38 @@
 	                                <th>Telephone</th>
 	                                <th>Email</th>
 	                                <th>CNI</th>                                
-	                                <th>Description</th>                                
-	                                <th>Date_demande</th>                                
-	                                <th>Actions</th>
+	                                <th>Role</th>
 	                            </tr>
 	                        </thead>
 	                        <tbody>
 	                            <!--   for (Todo todo: todos) {  -->
-	                            <c:forEach var="demand" items="${demandes}">
-	                            	<c:if test="${ demand.etat == 0 }">
+	                            <c:forEach var="member" items="${listMember}">
 		                                <tr>
 		                                    <td>
-		                                        <c:out value="${demand.nom}" />
+		                                        <c:out value="${member.nom}" />
 		                                    </td>
 		                                    <td>
-		                                        <c:out value="${demand.prenom}" />
+		                                        <c:out value="${member.prenom}" />
 		                                    </td>
 		                                    <td>
-		                                        <c:out value="${demand.date_naissance}" />
+		                                        <c:out value="${member.date_naissance}" />
 		                                    </td>
 		                                    <td>
-		                                        <c:out value="${demand.adresse}" />
+		                                        <c:out value="${member.adresse}" />
 		                                    </td>
 		                                    <td>
-		                                        <c:out value="${demand.telephone}" />
+		                                        <c:out value="${member.telephone}" />
 		                                    </td>
 		                                    <td>
-		                                        <c:out value="${demand.email}" />
+		                                        <c:out value="${member.email}" />
 		                                    </td>
 		                                    <td>
-		                                        <c:out value="${demand.cni}" />
+		                                        <c:out value="${member.cni}" />
 		                                    </td>
 		                                    <td>
-		                                        <c:out value="${demand.description}" />
-		                                    </td>
-		                                    <td>
-		                                        <c:out value="${demand.date_demande}" />
-		                                    </td>
-		                                    <td>
-		                                    	<a class="btn btn-danger" href="rejet_demand?id=<c:out value='${demand.id}' />">Rejeter</a> &nbsp;&nbsp;&nbsp;&nbsp; 
-		                                    	<a class="btn btn-success" href="accept_demand?id=<c:out value='${demand.id}' />">Accepter</a>
+		                                        <c:out value="${member.role}" />
 		                                    </td>
 		                                </tr>
-		                        	</c:if>
 	                            </c:forEach>
 	                            <!-- } -->
 	                        </tbody>

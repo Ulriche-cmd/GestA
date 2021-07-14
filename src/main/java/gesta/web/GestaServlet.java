@@ -110,8 +110,15 @@ public class GestaServlet extends HttpServlet {
                 case "/update_event":
                     updateEvent(request, response);
                     break;
-                    
-                    
+                case "/list-member":
+                    listMember(request, response);
+                    break;
+                case "/add-member":
+                    showMemberForm(request, response);
+                    break;
+                case "/insert_Member":
+                    addMember(request, response);
+                    break;
              /**case "/nom_de_la_route":
                     listCotisation(request, response);
                     break;
@@ -198,13 +205,43 @@ public class GestaServlet extends HttpServlet {
      */
     
     private void listEvent(HttpServletRequest request, HttpServletResponse response)
-    	    throws SQLException, IOException, ServletException {
-    	        List < Evenement > listEvent = evenementDAO.selectAllEvents();
-    	        System.out.println(listEvent);
-    	        request.setAttribute("listEvent", listEvent);
-    	        RequestDispatcher dispatcher = request.getRequestDispatcher("event-list.jsp");
-    	        dispatcher.forward(request, response);
-    	    }
+    throws SQLException, IOException, ServletException {
+        List < Evenement > listEvent = evenementDAO.selectAllEvents();
+        System.out.println(listEvent);
+        request.setAttribute("listEvent", listEvent);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("event-list.jsp");
+        dispatcher.forward(request, response);
+    }
+    
+    private void listMember(HttpServletRequest request, HttpServletResponse response)
+    throws SQLException, IOException, ServletException {
+        List < Membre > listMember = membreDAO.selectAllMembres();
+        request.setAttribute("listMember", listMember);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("member-list.jsp");
+        dispatcher.forward(request, response);
+    }
+    
+    private void showMemberForm(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
+    	RequestDispatcher dispatcher = request.getRequestDispatcher("member-form.jsp");
+    	dispatcher.forward(request, response);
+    }
+    
+  //insertion d'une demande
+    private void addMember(HttpServletRequest request, HttpServletResponse response)
+    throws SQLException, IOException {
+        String nom = request.getParameter("nom");
+        String prenom = request.getParameter("prenom");
+        String date_naiss = request.getParameter("date_naissance");
+        Date date_naissance = Date.valueOf(date_naiss);
+        String adresse = request.getParameter("adresse");
+        Long telephone= Long.parseLong(request.getParameter("telephone"));
+        String email = request.getParameter("email");
+        String cni = request.getParameter("cni");
+        Membre newMembre = new Membre(nom,prenom,date_naissance,adresse,telephone,email,cni);
+        membreDAO.insertMembre(newMembre);
+        response.sendRedirect("list-member");
+	}
 
     private void showNewEventForm(HttpServletRequest request, HttpServletResponse response)
     	    throws ServletException, IOException {
