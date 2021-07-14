@@ -27,7 +27,7 @@
 						    <li><a class="dropdown-item active" href="<%=request.getContextPath()%>/list_demand">Demandes</a></li>
 						    <li><a class="dropdown-item" href="<%=request.getContextPath()%>/list-member">Membres</a></li>
 						    <li><a class="dropdown-item" href="<%=request.getContextPath()%>/list_event">Evenements</a></li>
-						    <li><a class="dropdown-item" href="<%=request.getContextPath()%>/list-cotisation">Cotisations</a></li>
+						    <li><a class="dropdown-item" href="<%=request.getContextPath()%>/list_cotisations">Cotisations</a></li>
 						    <li><hr class="dropdown-divider"></li>
 						    <li><a class="dropdown-item" href="<%=request.getContextPath()%>/list-logOut">Déconnexion</a></li>
 						  </ul>
@@ -36,13 +36,4 @@
 				</nav>
             </header>
         </body>
-        
-        <script>
-        
-        var dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'))
-        var dropdownList = dropdownElementList.map(function (dropdownToggleEl) {
-          return new bootstrap.Dropdown(dropdownToggleEl)
-        })
-        
-        </script>
      </html>

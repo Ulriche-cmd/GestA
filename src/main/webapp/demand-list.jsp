@@ -19,11 +19,12 @@
             <br><br>
             <div class="row">
                 <!-- <div class="alert alert-success" *ngIf='message'>{{message}}</div> -->
-                <div>
+	                <div class="container">
+	                	<h3 class="text-center">Liste des demandes</h3>
+		                    <hr>
+		                    <br>
+	                </div>
                     <div class="contain">
-	                    <h3 class="text-center">Liste des demandes</h3>
-	                    <hr>
-	                    <br>
 	                    <div class="text-left">
 	                        <a href="<%=request.getContextPath()%>/add-member" class="btn btn-success">Ajouter un Membre</a>
 	                    </div>
@@ -88,7 +89,6 @@
 	                    </table>
 	            	</div>
                 </div>
-            </div>
         </body>
 
         </html>

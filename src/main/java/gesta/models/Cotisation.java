@@ -10,9 +10,9 @@ public class Cotisation {
     protected int 		id_evenement;
     protected int 		id_membre;
     
-    Cotisation() {}
+ public   Cotisation() {}
     
-    Cotisation(Float montant, Date date_cotisation, int id_eve, int id_memb) {
+ public   Cotisation(Float montant, Date date_cotisation, int id_eve, int id_memb) {
     	super();
     	this.montant = montant;
     	this.date_cotisation = date_cotisation;
@@ -20,7 +20,7 @@ public class Cotisation {
     	this.id_membre = id_memb;
     }
     
-    Cotisation(int id, Float montant, Date date_cotisation, int id_eve, int id_memb) {
+  public  Cotisation(int id, Float montant, Date date_cotisation, int id_eve, int id_memb) {
     	super();
     	this.id = id;
     	this.montant = montant;
