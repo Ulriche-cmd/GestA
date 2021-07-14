@@ -18,7 +18,7 @@
                     <h3 class="text-center">Liste d'Evenements</h3>
                     <hr>
                     <div class="container text-left">
-
+                    	<br>
                         <a href="<%=request.getContextPath()%>/new_event" class="btn btn-success">Ajouter Evenement</a>
                     </div>
                     <br>

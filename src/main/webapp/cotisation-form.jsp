@@ -9,17 +9,10 @@
         </head>
 
         <body>
-
-            <header>
-                <nav class="navbar navbar-expand-md navbar-dark" style="background-color: tomato">
-                    <div>
-                        <a href="https://www.javaguides.net" class="navbar-brand"> Enregistrer une nouvelle cotisation </a>
-                    </div>
-
-              
-                </nav>
+			<header>
+                <jsp:include page="navbar.jsp"></jsp:include>
             </header>
-            <br>
+            <br><br>
             <div class="container col-md-5">
                 <div class="card">
                     <div class="card-body">

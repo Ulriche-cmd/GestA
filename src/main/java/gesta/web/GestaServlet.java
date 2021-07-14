@@ -38,11 +38,13 @@ public class GestaServlet extends HttpServlet {
     private DemandeDAO demandeDAO;
     private EvenementDAO evenementDAO;
     private MembresDAO membreDAO;
+    private CotisationDAO cotisationDAO;
    
     public void init() {
     	demandeDAO = new DemandeDAO();
     	evenementDAO = new EvenementDAO();
     	membreDAO = new MembresDAO();
+    	cotisationDAO = new CotisationDAO();
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)

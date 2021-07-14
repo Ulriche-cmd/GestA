@@ -9,20 +9,10 @@
         </head>
 
         <body>
-
-            <header>
-                <nav class="navbar navbar-expand-md navbar-dark" style="background-color: tomato">
-                    <div>
-                        <a href="https://www.javaguides.net" class="navbar-brand">GestA </a>
-                    </div>
-
-                    <ul class="navbar-nav">
-                        <li><a href="<%=request.getContextPath()%>/list" class="nav-link">Cotisation</a></li>
-                    </ul>
-                </nav>
+			<header>
+                <jsp:include page="navbar.jsp"></jsp:include>
             </header>
-            <br>
-
+            <br><br>
             <div class="row">
                 <!-- <div class="alert alert-success" *ngIf='message'>{{message}}</div> -->
 
@@ -30,9 +20,8 @@
                     <h3 class="text-center">Listes des Cotisations</h3>
                     <hr>
                     <div class="container text-left">
-
-                        <a href="<%=request.getContextPath()%>/new" class="btn btn-success">Add
-     New User</a>
+                    <br>
+                        <a href="<%=request.getContextPath()%>/new_cotisation" class="btn btn-success"> Enregistrer une nouvelle cotisation </a>
                     </div>
                     <br>
                     <table class="table table-bordered">
