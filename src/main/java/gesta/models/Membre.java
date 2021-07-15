@@ -41,6 +41,12 @@ public class Membre {
     	this.cni = cni;
     	this.role = role;
     }
+    
+    public Membre(String login, String mdp) {
+    	super();
+    	this.login = login;
+    	this.mdp = mdp;
+    }
 
 	public int getId() {
 		return id;

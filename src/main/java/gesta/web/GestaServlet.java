@@ -21,6 +21,7 @@ import gesta.dao.EvenementDAO;
 import gesta.models.Evenement;
 import gesta.dao.authentificationDAO;
 
+
 /**
  * 
  * @author christian
@@ -178,27 +179,27 @@ public class GestaServlet extends HttpServlet {
  }
     
     private void logIn(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-    	String login = request.getParameter("login");
-        String mdp = request.getParameter("mdp");
-
-        try {
-            if (authentificationDAO.validate(login, mdp)) {
-                //HttpSession session = request.getSession();
-                // session.setAttribute("login",login);
-                response.sendRedirect("list_demand");
-            } else {
-                //HttpSession session = request.getSession();
-                //session.setAttribute("login", login);
-                //request.setAttribute("error", "echec de connexion");
-                //RequestDispatcher dispatcher = request.getRequestDispatcher("demand-list.jsp");
-            	//dispatcher.forward(request, response);
-            	response.sendRedirect("authentification");
-            }
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-	}
+    	    throws ServletException, IOException {
+    	    	String login = request.getParameter("login");
+    	        String mdp = request.getParameter("mdp");
+    	        Membre authentification = new  Membre(login, mdp);
+    	        try {
+    	            if (authentificationDAO.validate(authentification)) {
+    	                //HttpSession session = request.getSession();
+    	                // session.setAttribute("login",login);
+    	                response.sendRedirect("list_demand");
+    	            } else {
+    	                //HttpSession session = request.getSession();
+    	                //session.setAttribute("login", login);
+    	                request.setAttribute("erreur", "erreur de connexion");
+    		        	RequestDispatcher dispatcher = request.getRequestDispatcher("authentification");
+    		        	dispatcher.forward(request, response);
+    	            }
+    	        } catch (ClassNotFoundException e) {
+    	            e.printStackTrace();
+    	        }
+    	    }
+	
     
     private void showNavbar(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
