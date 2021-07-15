@@ -4,19 +4,21 @@
         <html>
 
         <head>
-            <title>demand-list</title>
+            <title>gestA - listDemande</title>
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         </head>
         <style>
-        	.contain{
-        		padding: 0px 100px 100px 100px;
+        	.conta{
+        		width:80%;
+        		margin-left:auto;
+        		margin-right:auto;
         	}
         </style>
         <body>
             <header>
                 <jsp:include page="navbar.jsp"></jsp:include>
             </header>
-            <br><br>
+            <br>
             <div class="row">
                 <!-- <div class="alert alert-success" *ngIf='message'>{{message}}</div> -->
 	                <div class="container">
@@ -24,12 +26,12 @@
 		                    <hr>
 		                    <br>
 	                </div>
-                    <div class="contain">
+                    <div class="conta">
 	                    <div class="text-left">
 	                        <a href="<%=request.getContextPath()%>/add-member" class="btn btn-success">Ajouter un Membre</a>
 	                    </div>
 	                    <br>
-	                    <table class="table table-bordered">
+	                    <table class="tab table table-bordered">
 	                        <thead>
 	                            <tr>
 	                                <th>Nom</th>
@@ -39,7 +41,7 @@
 	                                <th>Telephone</th>
 	                                <th>Email</th>
 	                                <th>CNI</th>                                
-	                                <th>Description</th>                                
+	                                <th style="width:400px;">Description</th>                                
 	                                <th>Date_demande</th>                                
 	                                <th>Actions</th>
 	                            </tr>
@@ -77,8 +79,8 @@
 		                                        <c:out value="${demand.date_demande}" />
 		                                    </td>
 		                                    <td>
-		                                    	<a class="btn btn-danger" href="rejet_demand?id=<c:out value='${demand.id}' />">Rejeter</a> &nbsp;&nbsp;&nbsp;&nbsp; 
-		                                    	<a class="btn btn-success" href="accept_demand?id=<c:out value='${demand.id}' />">Accepter</a>
+		                                    	<a class="text-danger" href="rejet_demand?id=<c:out value='${demand.id}' />">Rejeter</a> &nbsp;&nbsp;&nbsp;&nbsp; 
+		                                    	<a class="text-success" href="accept_demand?id=<c:out value='${demand.id}' />">Accepter</a>
 		                                    </td>
 		                                </tr>
 		                        	</c:if>

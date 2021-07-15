@@ -29,7 +29,7 @@
 						    <li><a class="dropdown-item" href="<%=request.getContextPath()%>/list_event">Evenements</a></li>
 						    <li><a class="dropdown-item" href="<%=request.getContextPath()%>/list_cotisations">Cotisations</a></li>
 						    <li><hr class="dropdown-divider"></li>
-						    <li><a class="dropdown-item" href="<%=request.getContextPath()%>/list-logOut">Déconnexion</a></li>
+						    <li><a class="dropdown-item" href="<%=request.getContextPath()%>/deconnexion">Déconnexion</a></li>
 						  </ul>
 						</div>
 				  </div>

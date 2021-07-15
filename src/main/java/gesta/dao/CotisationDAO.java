@@ -99,13 +99,11 @@ public class CotisationDAO {
 	        List < Cotisation > cotisation = new ArrayList < > ();
 	        // Step 1: Establishing a Connection
 	        try (Connection connection = getConnexion();
-
 	            // Step 2:Create a statement using connection object
 	            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_COTISATIONS);) {
 	            System.out.println(preparedStatement);
 	            // Step 3: Execute the query or update query
 	            ResultSet rs = preparedStatement.executeQuery();
-
 	            // Step 4: Process the ResultSet object.
 	            while (rs.next()) {
 	                int id = rs.getInt("id_cotisation");
@@ -113,8 +111,6 @@ public class CotisationDAO {
 	                Date date_cotisation = rs.getDate("date_cotisation");
 	                int id_evenement= rs.getInt("id_evenement");
 	                int id_membre =rs.getInt("id_membre");
-	                
-	         
 	                cotisation.add( new Cotisation(id, montant, date_cotisation, id_evenement,id_membre));
 	            }
 	        } catch (SQLException e) {

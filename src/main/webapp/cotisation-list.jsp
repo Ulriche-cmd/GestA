@@ -4,7 +4,7 @@
         <html>
 
         <head>
-            <title>GESTA Application</title>
+            <title>gestA - listCotisation </title>
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         </head>
 
@@ -12,14 +12,14 @@
 			<header>
                 <jsp:include page="navbar.jsp"></jsp:include>
             </header>
-            <br><br>
+            <br>
             <div class="row">
                 <!-- <div class="alert alert-success" *ngIf='message'>{{message}}</div> -->
 
                 <div class="container">
                     <h3 class="text-center">Listes des Cotisations</h3>
                     <hr>
-                    <div class="container text-left">
+                    <div class="text-left">
                     <br>
                         <a href="<%=request.getContextPath()%>/new_cotisation" class="btn btn-success"> Enregistrer une nouvelle cotisation </a>
                     </div>
@@ -32,7 +32,6 @@
                                 <th>Date</th>
                                 <th>Evenement</th>
                                 <th>Membre</th>
-                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -55,8 +54,7 @@
                                     <td>
                                         <c:out value="${cotisation.id_membre}" />
                                     </td>
-                                    <td><a href="edit?id=<c:out value='${cotisation.id}' />">Edit</a> &nbsp;&nbsp;&nbsp;&nbsp; <a href="delete?id=<c:out value='${cotisation.id}' />">Delete</a></td>
-                                </tr>
+                                 </tr>
                             </c:forEach>
                             <!-- } -->
                         </tbody>

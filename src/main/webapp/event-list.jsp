@@ -4,7 +4,7 @@
         <html>
 
         <head>
-            <title>Evenements</title>
+            <title>gestA - listEvenements</title>
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         </head>
         <body>
@@ -17,7 +17,7 @@
                 <div class="container">
                     <h3 class="text-center">Liste d'Evenements</h3>
                     <hr>
-                    <div class="container text-left">
+                    <div class="text-left">
                     	<br>
                         <a href="<%=request.getContextPath()%>/new_event" class="btn btn-success">Ajouter Evenement</a>
                     </div>
