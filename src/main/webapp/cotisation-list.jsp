@@ -1,58 +1,61 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
- pageEncoding="UTF-8"%>
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
         <html>
 
         <head>
-            <title>Evenements</title>
+            <title>GESTA Application</title>
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         </head>
+
         <body>
-            <header>
-            	<jsp:include page="navbar.jsp"></jsp:include>
+			<header>
+                <jsp:include page="navbar.jsp"></jsp:include>
             </header>
-            <br>
+            <br><br>
             <div class="row">
                 <!-- <div class="alert alert-success" *ngIf='message'>{{message}}</div> -->
+
                 <div class="container">
-                    <h3 class="text-center">Liste d'Evenements</h3>
+                    <h3 class="text-center">Listes des Cotisations</h3>
                     <hr>
                     <div class="container text-left">
-                    	<br>
-                        <a href="<%=request.getContextPath()%>/new_event" class="btn btn-success">Ajouter Evenement</a>
+                    <br>
+                        <a href="<%=request.getContextPath()%>/new_cotisation" class="btn btn-success"> Enregistrer une nouvelle cotisation </a>
                     </div>
                     <br>
                     <table class="table table-bordered">
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Intitule</th>
-                                <th>Description</th>
-                                <th>Date Debut</th>
-                                <th>Date Fin</th>
+                                <th>Montant</th>
+                                <th>Date</th>
+                                <th>Evenement</th>
+                                <th>Membre</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             <!--   for (Todo todo: todos) {  -->
-                            <c:forEach var="event" items="${listEvent}">
+                            <c:forEach var="cotisation" items="${listCotisation}">
+
                                 <tr>
                                     <td>
-                                        <c:out value="${event.id}" />
+                                        <c:out value="${cotisation.id}" />
                                     </td>
                                     <td>
-                                        <c:out value="${event.intitule}" />
+                                        <c:out value="${cotisation.montant}" />
                                     </td>
                                     <td>
-                                        <c:out value="${event.description}" />
+                                        <c:out value="${cotisation.date_cotisation}" />
                                     </td>
                                     <td>
-                                        <c:out value="${event.date_debut}" />
+                                        <c:out value="${cotisation.id_evenement}" />
                                     </td>
                                     <td>
-                                        <c:out value="${event.date_fin}" />
+                                        <c:out value="${cotisation.id_membre}" />
                                     </td>
-                                    <td><a href="edit_event?id=<c:out value='${event.id}' />">Modifier</a> &nbsp;&nbsp;&nbsp;&nbsp; <a href="delete_event?id=<c:out value='${event.id}' />">Supprimer</a></td>
+                                    <td><a href="edit?id=<c:out value='${cotisation.id}' />">Edit</a> &nbsp;&nbsp;&nbsp;&nbsp; <a href="delete?id=<c:out value='${cotisation.id}' />">Delete</a></td>
                                 </tr>
                             </c:forEach>
                             <!-- } -->

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
         <head>
@@ -18,7 +19,8 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-6">
-					    <img src="image/img1.png" />
+					    <img src="${request.getContextPath}/logo.png" />
+					    
 					</div>
 	<%-- 				<div class="column"><img src="<c:url value=""/>"/></div> --%>
 		            <div class="col-md-5">
@@ -32,21 +34,23 @@
 			                        </fieldset>
 			                        
 			                        <fieldset class="form-group">
-			                            <label>PASSWORD:</label> <input type="password"  class="form-control" name="mdp" required="required">
+			                            <labecontextPathl>PASSWORD:</label> <input type="password"  class="form-control" name="mdp" required="required">
 			                        </fieldset>
 			                        
 			                        <center><button type="submit" value="submit" class="btn btn-success">SE CONNECTER</button></center>
-		            
-			                       	<c:if test="${error!= null}">
-			                       	<br><br>
-			                        <h5><c:out value="${error}"/></h5>
-			                       	</c:if>
+		            				<br><br>
+			                       	<c:if test="${erreur != null}">
+						            	<center> 
+							            	<div class="alert alert-danger" role="alert">
+											  <c:out value='${erreur}' /> 
+											</div>
+						            	</center>
+						            </c:if>
 			                        <br>
 		                        </form>
 		                        <form action="">
-		                        <h6>vous etes nouveau?</h6>
-		                        <h6>veuillez vous incrire en cliquant sur ce bouton</h6>
-		                        <center><button type="submit" class="btn btn-success">INSCRIVEZ VOUS</button></center>
+		                        <h6>vous etes nouveau ?</h6>
+		                        <h6>veuillez vous incrire en cliquant <a href="<%=request.getContextPath()%>/New_Demand"> ici </a> </h6>
 		                        </form>
 		                        
 		                    </div>
